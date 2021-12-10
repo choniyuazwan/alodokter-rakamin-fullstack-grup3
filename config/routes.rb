@@ -5,8 +5,10 @@ Rails.application.routes.draw do
       # resources :categories, only: %i[index create destroy]
       # resources :books, only: %i[index create show update destroy]
 
-      post 'login', to: 'authentication#create'
-      post 'register', to: 'users#create'
+      resources :users, only: %i[show update]
+
+      post 'users/login', to: 'authentication#create'
+      post 'users/register', to: 'users#create'
     end
   end
 end
