@@ -15,7 +15,7 @@ class UserRepresenter
         birthdate: user.birthdate,
         gender: user.gender,
         phone: user.phone,
-        idendity: user.idendity,
+        identity: user.identity,
         address: user.address,
         city: user.city
     }

@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2021_12_09_064250) do
     t.string "birthdate"
     t.string "gender"
     t.string "phone"
-    t.string "idendity"
+    t.string "identity"
     t.string "address"
     t.string "city"
     t.datetime "created_at", precision: 6, null: false

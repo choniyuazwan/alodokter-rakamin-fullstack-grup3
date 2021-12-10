@@ -8,7 +8,7 @@ one:
   birthdate: MyString
   gender: MyString
   phone: MyString
-  idendity: MyString
+  identity: MyString
   address: MyString
   city: MyString
 
@@ -20,6 +20,6 @@ two:
   birthdate: MyString
   gender: MyString
   phone: MyString
-  idendity: MyString
+  identity: MyString
   address: MyString
   city: MyString
