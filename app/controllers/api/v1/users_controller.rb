@@ -9,24 +9,24 @@ module Api
       def create
         @user = User.create(user_params)
         if @user.save
-          render json: UserRepresenter.new(@user).as_json, status: :created
+          render json: CommonRepresenter.new(data: UserRepresenter.new(@user).as_json, code: 201).as_json, status: :created
         else
-          render json: { error: @user.errors.full_messages.first }, status: :unprocessable_entity
+          render json: CommonRepresenter.new(code: 422, message: @user.errors.full_messages.first).as_json, status: :unprocessable_entity
         end
       end
 
       # GET /users/:id
       def show
-        render json: UserRepresenter.new(@user).as_json
+        render json: CommonRepresenter.new(data: UserRepresenter.new(@user).as_json).as_json
       end
    
       # PUT /users/:id
       def update
         if @user.update(user_params) 
           # head :no_content
-          render json: UserRepresenter.new(@user).as_json
+          render json: CommonRepresenter.new(data: UserRepresenter.new(@user).as_json).as_json
         else
-          render json: { error: @user.errors.full_messages.first }, status: :unprocessable_entity
+          render json: CommonRepresenter.new(code: 422, message: @user.errors.full_messages.first).as_json, status: :unprocessable_entity
         end
         
       end

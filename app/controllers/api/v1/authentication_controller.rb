@@ -10,9 +10,9 @@ module Api
         if user
           raise AuthenticateError unless user.authenticate(params.require(:password))
 
-          render json: UserRepresenter.new(user).as_json(true), status: :created
+          render json: CommonRepresenter.new(data: UserRepresenter.new(user).as_json(true), code: 201).as_json, status: :created
         else
-          render json: { error: 'No such user' }, status: :unauthorized
+          render json: CommonRepresenter.new(code: 401, message: 'No such user').as_json, status: :unauthorized
         end
       end
 
@@ -23,11 +23,11 @@ module Api
       end
 
       def parameter_missing(error)
-        render json: { error: error.message }, status: :unprocessable_entity
+        render json: CommonRepresenter.new(code: 422, message: error.message).as_json, status: :unprocessable_entity
       end
 
       def handle_unauthenticated
-        render json: { error: 'Incorrect password ' }, status: :unauthorized
+        render json: CommonRepresenter.new(code: 401, message: 'Incorrect password').as_json, status: :unauthorized
       end
     end
   end
