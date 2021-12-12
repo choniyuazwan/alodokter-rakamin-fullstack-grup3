@@ -1,9 +1,14 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      wrap_parameters :user, include: [:email, :password, :firstname, :lastname, :birthdate, :gender, :phone, :identity, :address, :city]
-      before_action :authenticate_request!, only: [:show, :update]
-      before_action :set_user, only: %i[update show]
+      class AuthenticateError < StandardError; end
+
+      rescue_from ActionController::ParameterMissing, with: :parameter_missing
+      rescue_from AuthenticateError, with: :handle_unauthenticated
+      
+      wrap_parameters :user, include: [:email, :password, :firstname, :lastname, :birthdate, :gender, :phone, :identity, :address, :city, :new_password]
+      before_action :authenticate_request!, only: [:show, :update_password, :update_personal]
+      before_action :set_user, only: %i[show update_password update_personal]
       
       # POST /users
       def create
@@ -13,6 +18,7 @@ module Api
         else
           render json: CommonRepresenter.new(code: 422, message: @user.errors.full_messages.first).as_json, status: :unprocessable_entity
         end
+      rescue StandardError => e; render json: CommonRepresenter.new(code: 400, message: e.to_s).as_json, status: :bad_request
       end
 
       # GET /users/:id
@@ -20,25 +26,40 @@ module Api
         render json: CommonRepresenter.new(data: UserRepresenter.new(@user).as_json).as_json
       end
    
-      # PUT /users/:id
-      def update
+      # PUT /users/update_personal/:id
+      def update_personal
         if @user.update(user_params) 
-          # head :no_content
           render json: CommonRepresenter.new(data: UserRepresenter.new(@user).as_json).as_json
         else
           render json: CommonRepresenter.new(code: 422, message: @user.errors.full_messages.first).as_json, status: :unprocessable_entity
         end
-        
+      rescue StandardError => e; render json: CommonRepresenter.new(code: 400, message: e.to_s).as_json, status: :bad_request
+      end
+
+      # PUT /users/update_password/:id
+      def update_password
+        if @user
+          raise AuthenticateError unless @user.authenticate(params.require(:password))
+
+          if @user.update({'password' => params[:new_password]})
+            render json: CommonRepresenter.new(data: UserRepresenter.new(@user).as_json).as_json
+          else
+            render json: CommonRepresenter.new(code: 422, message: @user.errors.full_messages.first).as_json, status: :unprocessable_entity
+          end
+        else
+          render json: CommonRepresenter.new(code: 401, message: 'No such user').as_json, status: :unauthorized
+        end
       end
    
       private
       
       def user_params
-        params.require(:user).permit(:email, :password, :firstname, :lastname, :birthdate, :gender, :phone, :identity, :address, :city)
+        params.require(:user).permit(:email, :password, :firstname, :lastname, :birthdate, :gender, :phone, :identity, :address, :city, :new_password)
       end
 
-      def set_user
-        @user = User.find(params[:id])
+      def set_user 
+        @user = User.find(params[:id]) 
+      rescue StandardError => e; render json: CommonRepresenter.new(code: 400, message: e.to_s).as_json, status: :bad_request
       end
     end
   end

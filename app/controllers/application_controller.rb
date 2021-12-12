@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::API
-  # include Response
-  # include ExceptionHandler
+  include ApplicationHelper
   rescue_from ActiveRecord::RecordNotDestroyed, with: :not_destroyed
 
   def authenticate_request!

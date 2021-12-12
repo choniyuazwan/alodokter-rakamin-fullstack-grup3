@@ -2,13 +2,14 @@ Rails.application.routes.draw do
   get 'users/Authentication'
   namespace :api do
     namespace :v1 do
-      # resources :categories, only: %i[index create destroy]
-      # resources :books, only: %i[index create show update destroy]
 
-      resources :users, only: %i[show update]
+      resources :users, only: %i[show]
 
       post 'users/login', to: 'authentication#create'
       post 'users/register', to: 'users#create'
+
+      put 'users/:id/update_personal', to: 'users#update_personal'
+      put 'users/:id/update_password', to: 'users#update_password'
     end
   end
 end
