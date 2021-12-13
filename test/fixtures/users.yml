@@ -3,23 +3,19 @@
 one:
   email: MyString
   password_digest: MyString
-  firstname: MyString
-  lastname: MyString
-  birthdate: MyString
-  gender: MyString
+  fullname: MyString
+  birthdate: 2021-12-13
+  gender: false
   phone: MyString
   identity: MyString
   address: MyString
-  city: MyString
 
 two:
   email: MyString
   password_digest: MyString
-  firstname: MyString
-  lastname: MyString
-  birthdate: MyString
-  gender: MyString
+  fullname: MyString
+  birthdate: 2021-12-13
+  gender: false
   phone: MyString
   identity: MyString
   address: MyString
-  city: MyString
