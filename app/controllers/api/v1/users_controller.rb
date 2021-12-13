@@ -6,14 +6,14 @@ module Api
       rescue_from ActionController::ParameterMissing, with: :parameter_missing
       rescue_from AuthenticateError, with: :handle_unauthenticated
       
-      wrap_parameters :user, include: [:email, :password, :firstname, :lastname, :birthdate, :gender, :phone, :identity, :address, :city, :new_password]
+      wrap_parameters :user, include: [:email, :password, :fullname, :birthdate, :gender, :phone, :identity, :address, :new_password]
       before_action :authenticate_request!, only: [:show, :update_password, :update_personal]
       before_action :set_user, only: %i[show update_password update_personal]
 
       # GET /users
       def index
         @users = User.page(params[:page]).per(params[:per_page])
-        render json: CommonRepresenter.new(data: UsersRepresenter.new(@users).as_json, meta: [@users.total_pages, @users.total_count, @users.current_page, @users.limit_value]).as_json
+        render json: CommonRepresenter.new(data: UsersRepresenter.new(@users).as_json, meta: [@users.current_page, @users.limit_value, @users.total_pages, @users.total_count]).as_json
       end
       
       # POST /users
@@ -60,7 +60,7 @@ module Api
       private
       
       def user_params
-        params.require(:user).permit(:email, :password, :firstname, :lastname, :birthdate, :gender, :phone, :identity, :address, :city, :new_password)
+        params.require(:user).permit(:email, :password, :fullname, :birthdate, :gender, :phone, :identity, :address, :new_password)
       end
 
       def set_user 

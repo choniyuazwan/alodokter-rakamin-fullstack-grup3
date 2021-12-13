@@ -7,14 +7,12 @@ class UsersRepresenter
       {
           id: user.id,
           email: user.email,
-          firstname: user.firstname,
-          lastname: user.lastname,
+          fullname: user.fullname,
           birthdate: user.birthdate,
           gender: user.gender,
           phone: user.phone,
           identity: user.identity,
-          address: user.address,
-          city: user.city
+          address: user.address
       }
     end
   end
