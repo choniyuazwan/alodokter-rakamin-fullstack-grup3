@@ -9,6 +9,12 @@ module Api
       wrap_parameters :user, include: [:email, :password, :firstname, :lastname, :birthdate, :gender, :phone, :identity, :address, :city, :new_password]
       before_action :authenticate_request!, only: [:show, :update_password, :update_personal]
       before_action :set_user, only: %i[show update_password update_personal]
+
+      # GET /users
+      def index
+        @users = User.page(params[:page]).per(params[:per_page])
+        render json: CommonRepresenter.new(data: UsersRepresenter.new(@users).as_json, meta: [@users.total_pages, @users.total_count, @users.current_page, @users.limit_value]).as_json
+      end
       
       # POST /users
       def create
