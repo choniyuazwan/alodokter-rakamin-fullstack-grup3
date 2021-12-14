@@ -5,11 +5,11 @@ one:
   category: one
   content: MyString
   image: MyString
-  reviewer: MyString
+  reviewer: one
 
 two:
   title: MyString
   category: two
   content: MyString
   image: MyString
-  reviewer: MyString
+  reviewer: two
