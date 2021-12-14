@@ -4,8 +4,9 @@ module Api
       before_action :set_reviewer, only: :show
       
       def index
-        @reviewers = Reviewer.page(params[:page]).per(params[:per_page])
+        @reviewers = Reviewer.order(params[:order]).page(params[:page]).per(params[:per_page])
         render json: CommonRepresenter.new(data: ReviewersRepresenter.new(@reviewers).as_json, meta: [@reviewers.current_page, @reviewers.limit_value, @reviewers.total_pages, @reviewers.total_count]).as_json
+      rescue StandardError => e; render json: CommonRepresenter.new(code: 400, message: e.to_s).as_json, status: :bad_request
       end
 
       def create

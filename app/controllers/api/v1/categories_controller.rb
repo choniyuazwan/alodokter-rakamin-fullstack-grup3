@@ -4,8 +4,9 @@ module Api
       before_action :set_category, only: :show
       
       def index
-        @categories = Category.page(params[:page]).per(params[:per_page])
+        @categories = Category.order(params[:order]).page(params[:page]).per(params[:per_page])
         render json: CommonRepresenter.new(data: CategoriesRepresenter.new(@categories).as_json, meta: [@categories.current_page, @categories.limit_value, @categories.total_pages, @categories.total_count]).as_json
+      rescue StandardError => e; render json: CommonRepresenter.new(code: 400, message: e.to_s).as_json, status: :bad_request
       end
 
       def create
