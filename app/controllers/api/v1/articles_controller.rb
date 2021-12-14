@@ -25,7 +25,7 @@ module Api
       private
 
       def article_params
-        params.permit(:title, :category_id, :content, :image, :reviewer)
+        params.permit(:title, :category_id, :content, :image, :reviewer_id)
       end
 
       def set_article
