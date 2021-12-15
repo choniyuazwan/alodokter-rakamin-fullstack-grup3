@@ -6,6 +6,6 @@ class Article < ApplicationRecord
   def self.query(search, category, headline)
     result = search ? where("title LIKE ?", "%#{search}%") : all
     result = category ? result.where("category_id = ?", "#{category}") : result
-    headline ? result.where("headline = ?", "#{headline}") : result
+    headline ? result.where("headline = ?", "#{headline}") : result.where(headline: [nil, false])
   end
 end
