@@ -12,8 +12,9 @@ module Api
 
       # GET /users
       def index
-        @users = User.page(params[:page]).per(params[:per_page])
+        @users = User.order(params[:order]).page(params[:page]).per(params[:per_page])
         render json: CommonRepresenter.new(data: UsersRepresenter.new(@users).as_json, meta: [@users.current_page, @users.limit_value, @users.total_pages, @users.total_count]).as_json
+      rescue StandardError => e; render json: CommonRepresenter.new(code: 400, message: e.to_s).as_json, status: :bad_request
       end
       
       # POST /users
