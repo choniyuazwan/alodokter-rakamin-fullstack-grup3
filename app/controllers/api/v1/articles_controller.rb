@@ -4,7 +4,8 @@ module Api
       before_action :set_article, only: :show
 
       def index
-        @articles = Article.query(params[:search], params[:category]).order(params[:order]).page(params[:page]).per(params[:per_page])
+        # order = params[:order].to_s + " " + params[:sort].to_s 
+        @articles = Article.query(params[:search], params[:category], params[:headline]).order(params[:order]).page(params[:page]).per(params[:per_page])
         render json: CommonRepresenter.new(data: ArticlesRepresenter.new(@articles).as_json, meta: [@articles.current_page, @articles.limit_value, @articles.total_pages, @articles.total_count]).as_json
       rescue StandardError => e; render json: CommonRepresenter.new(code: 400, message: e.to_s).as_json, status: :bad_request
       end
@@ -26,7 +27,7 @@ module Api
       private
 
       def article_params
-        params.permit(:title, :category_id, :content, :image, :reviewer_id)
+        params.permit(:title, :category_id, :content, :image, :reviewer_id, :headline)
       end
 
       def set_article

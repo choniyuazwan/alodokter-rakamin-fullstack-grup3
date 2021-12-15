@@ -9,7 +9,9 @@ class ArticleRepresenter
         category: Category.find(article.category_id).name,
         content: article.content,
         image: article.image,
-        reviewer: Reviewer.find(article.reviewer_id).name
+        reviewer: Reviewer.find(article.reviewer_id).name,
+        updated_at: article.updated_at,
+        headline: article.headline
     }
   end
   private

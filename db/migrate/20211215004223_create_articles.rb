@@ -6,6 +6,7 @@ class CreateArticles < ActiveRecord::Migration[6.1]
       t.string :content
       t.string :image
       t.references :reviewer, null: false, foreign_key: true
+      t.boolean :headline
 
       t.timestamps
     end

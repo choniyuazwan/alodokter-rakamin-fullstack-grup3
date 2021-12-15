@@ -8,9 +8,8 @@ class ArticlesRepresenter
           id: article.id,
           title: article.title,
           category: Category.find(article.category_id).name,
-          content: article.content,
           image: article.image,
-          reviewer: Reviewer.find(article.reviewer_id).name
+          headline: article.headline
       }
     end
   end
