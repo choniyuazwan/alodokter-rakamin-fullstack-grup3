@@ -1,0 +1,5 @@
+<h1>Lupa Password</h1>
+Hi <%= params[:user].fullname %>,
+
+Jika kamu melakukan lupa password, silahkan klik URL dibawah ini. URL akan otomatis berakhir setelah 15 menit.
+<%= api_v1_password_forget_edit_url(token: @token) %>
