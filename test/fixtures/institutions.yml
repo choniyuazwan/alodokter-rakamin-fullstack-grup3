@@ -2,6 +2,12 @@
 
 one:
   name: MyString
+  location: MyString
+  latitude: MyString
+  longitude: MyString
 
 two:
   name: MyString
+  location: MyString
+  latitude: MyString
+  longitude: MyString
