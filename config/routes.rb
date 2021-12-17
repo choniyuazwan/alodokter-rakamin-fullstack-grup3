@@ -12,7 +12,6 @@ Rails.application.routes.draw do
       put 'users/:id/update_personal', to: 'users#update_personal'
       put 'users/:id/update_password', to: 'users#update_password'
 
-      get 'password/forget', to: 'passwords#new'
       post 'password/forget', to: 'passwords#create'
       get 'password/forget/edit', to: 'passwords#edit'
       patch 'password/forget/edit', to: 'passwords#update'
