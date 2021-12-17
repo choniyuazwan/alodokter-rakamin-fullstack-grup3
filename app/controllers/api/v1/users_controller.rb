@@ -35,7 +35,7 @@ module Api
    
       # PUT /users/update_personal/:id
       def update_personal
-        if @user.update(user_params) 
+        if @user.update(user_params)
           render json: CommonRepresenter.new(data: UserRepresenter.new(@user).as_json).as_json
         else
           render json: CommonRepresenter.new(code: 422, message: @user.errors.full_messages.first).as_json, status: :unprocessable_entity
