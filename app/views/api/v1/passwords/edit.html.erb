@@ -1,0 +1,27 @@
+<h1 style="text-align:center;color: #3570D2;font-weight:bold;padding-bottom:3%">Atur Ulang Kata Sandi</h1>
+
+<%= form_with model: @user, url: api_v1_password_forget_edit_path(token: params[:token]) do |form| %>
+
+<% if form.object && form.object.errors.any? %>
+     <div class="alert alert-danger text-center" style="text-align:center;">
+          <% form.object.errors.full_messages.each do |message| %>
+               <div><%= "Password tidak sesuai, silahkan masukan password dengan benar." %></div>
+          <% end %>
+     </div>
+<% end %>
+
+<div style="text-align:center;padding-right: 10%;padding-left:10%;padding-bottom:1%"> 
+     <%= form.label :password %>
+     <%= form.password_field :password, placeholder: "Masukkan Kata Sandi Baru", class: "form-control", type: "password"%> 
+</div>
+
+<div style="text-align:center;padding-right: 10%;padding-left:10%;padding-bottom:1%"> 
+     <%= form.label :password_confirmation %>
+     <%= form.password_field :password_confirmation, placeholder: "Konfirmasi Kata Sandi Baru", class: "form-control", type: "password"%> 
+</div>
+
+<div style="text-align:center">
+    <%= form.submit "Reset Password", class: "btn btn-primary" %>
+</div>
+
+<% end %>
