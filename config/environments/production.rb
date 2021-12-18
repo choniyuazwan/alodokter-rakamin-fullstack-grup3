@@ -118,12 +118,12 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
   ActionMailer::Base.default :content_type => "text/html"
-  config.action_mailer.default_url_options = {host: "localhost:3000"}
+  config.action_mailer.default_url_options = {host: "https://alogrup3.herokuapp.com"}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
-    domain:               'localhost:3000',
+    domain:               'https://alogrup3.herokuapp.com',
     user_name:            'alodokter.confirmation@gmail.com',
     password:             'alodokter_internship',
     authentication:       :plain,
