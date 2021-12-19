@@ -57,12 +57,12 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
   ActionMailer::Base.default :content_type => "text/html"
-  config.action_mailer.default_url_options = {host: "https://alogrup3.herokuapp.com"}
+  config.action_mailer.default_url_options = {host: "alogrup3.herokuapp.com"}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
-    domain:               'https://alogrup3.herokuapp.com',
+    domain:               'alogrup3.herokuapp.com',
     user_name:            'alodokter.confirmation@gmail.com',
     password:             'alodokter_internship',
     authentication:       :plain,
