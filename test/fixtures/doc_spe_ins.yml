@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  doctors_specialization: one
+  doc_spe: one
   institution: one
   price: 1
 
 two:
-  doctors_specialization: two
+  doc_spe: two
   institution: two
   price: 1

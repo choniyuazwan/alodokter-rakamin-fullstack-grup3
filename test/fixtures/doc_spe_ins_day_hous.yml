@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  doctors_specializations_institutions_day: one
+  doc_spe_ins_day: one
   hour: one
-  date: 2021-12-18
+  date: 2021-12-19
   is_active: false
 
 two:
-  doctors_specializations_institutions_day: two
+  doc_spe_ins_day: two
   hour: two
-  date: 2021-12-18
+  date: 2021-12-19
   is_active: false

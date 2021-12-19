@@ -1,4 +1,4 @@
 class Booking < ApplicationRecord
   belongs_to :user
-  belongs_to :doctors_specializations_institutions_days_hour
+  belongs_to :doc_spe_ins_day_hou
 end
