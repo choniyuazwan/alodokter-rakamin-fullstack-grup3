@@ -2,8 +2,8 @@
 
 one:
   user: one
-  doctors_specializations_institutions_days_hour: one
+  doc_spe_ins_day_hou: one
 
 two:
   user: two
-  doctors_specializations_institutions_days_hour: two
+  doc_spe_ins_day_hou: two
