@@ -1,5 +1,6 @@
 require "active_support/core_ext/integer/time"
 
+Rails.application.routes.default_url_options[:host] = 'https://alogrup3.herokuapp.com'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -31,7 +32,7 @@ Rails.application.configure do
   config.assets.compile = false
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.asset_host = 'http://assets.example.com'
+  config.asset_host = 'https://alogrup3.herokuapp.com'
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
@@ -117,4 +118,15 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+  ActionMailer::Base.default :content_type => "text/html"
+  config.action_mailer.default_url_options = {host: "https://alogrup3.herokuapp.com"}
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'https://alogrup3.herokuapp.com',
+    user_name:            'alodokter.confirmation@gmail.com',
+    password:             'alodokter_internship',
+    authentication:       :plain,
+    enable_starttls_auto: true  }
 end
