@@ -4,8 +4,7 @@ require "active_support/core_ext/integer/time"
 # test suite. You never need to work with it otherwise. Remember that
 # your test database is "scratch space" for the test suite and is wiped
 # and recreated between test runs. Don't rely on the data there!
-
-Rails.application.routes.default_url_options[:host] = 'https://alogrup3.herokuapp.com/'
+Rails.application.routes.default_url_options[:host] = 'https://alogrup3.herokuapp.com'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -57,4 +56,15 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+  ActionMailer::Base.default :content_type => "text/html"
+  config.action_mailer.default_url_options = {host: "https://alogrup3.herokuapp.com"}
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'https://alogrup3.herokuapp.com',
+    user_name:            'alodokter.confirmation@gmail.com',
+    password:             'alodokter_internship',
+    authentication:       :plain,
+    enable_starttls_auto: true  }
 end
