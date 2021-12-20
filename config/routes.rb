@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       resources :reviewers, only: %i[index create show]
       resources :articles, only: %i[index create show]
       
+      resources :doc_spe_ins_day_hous, only: %i[index]
+      
       resources :specializations, only: %i[index create show]
       resources :institutions, only: %i[index create show]
 
