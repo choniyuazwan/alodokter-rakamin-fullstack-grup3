@@ -1,6 +1,5 @@
 require "active_support/core_ext/integer/time"
 
-Rails.application.routes.default_url_options[:host] = 'https://alogrup3.herokuapp.com'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -75,12 +74,12 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
   ActionMailer::Base.default :content_type => "text/html"
-  config.action_mailer.default_url_options = {host: "https://alogrup3.herokuapp.com"}
+  config.action_mailer.default_url_options = {host: "localhost:3000"}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
-    domain:               'https://alogrup3.herokuapp.com',
+    domain:               'localhost:3000',
     user_name:            'alodokter.confirmation@gmail.com',
     password:             'alodokter_internship',
     authentication:       :plain,
