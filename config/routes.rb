@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :articles, only: %i[index create show]
       
       resources :doc_spe_ins_day_hous, only: %i[index]
+      resources :bookings, only: %i[index create show]
       
       resources :specializations, only: %i[index create show]
       resources :institutions, only: %i[index create show]

@@ -33,7 +33,7 @@ module Api
         render json: CommonRepresenter.new(data: UserRepresenter.new(@user).as_json).as_json
       end
    
-      # PUT /users/update_personal/:id
+      # PUT /users/:id/update_personal
       def update_personal
         if @user.update(user_params)
           render json: CommonRepresenter.new(data: UserRepresenter.new(@user).as_json).as_json
@@ -43,7 +43,7 @@ module Api
       rescue StandardError => e; render json: CommonRepresenter.new(code: 400, message: e.to_s).as_json, status: :bad_request
       end
 
-      # PUT /users/update_password/:id
+      # PUT /users/:id/update_password
       def update_password
         if @user
           raise AuthenticateError unless @user.authenticate(params.require(:password))

@@ -8,15 +8,21 @@
 
 require 'csv'
 
-Article.destroy_all
-Category.destroy_all
-Reviewer.destroy_all
-# DocSpe.destroy_all
+# Article.destroy_all
+# Category.destroy_all
+# Reviewer.destroy_all
+DocSpeInsDayHou.destroy_all
+DocSpeInsDay.destroy_all
+DocSpeIn.destroy_all
+DocSpe.destroy_all
 
-ActiveRecord::Base.connection.reset_pk_sequence!('categories')
-ActiveRecord::Base.connection.reset_pk_sequence!('reviewers')
-ActiveRecord::Base.connection.reset_pk_sequence!('articles')
-# ActiveRecord::Base.connection.reset_pk_sequence!('doc_spes')
+# ActiveRecord::Base.connection.reset_pk_sequence!('categories')
+# ActiveRecord::Base.connection.reset_pk_sequence!('reviewers')
+# ActiveRecord::Base.connection.reset_pk_sequence!('articles')
+ActiveRecord::Base.connection.reset_pk_sequence!('doc_spes')
+ActiveRecord::Base.connection.reset_pk_sequence!('doc_spe_ins')
+ActiveRecord::Base.connection.reset_pk_sequence!('doc_spe_ins_days')
+ActiveRecord::Base.connection.reset_pk_sequence!('doc_spe_ins_day_hous')
 
 [{name: 'Hidup Sehat'}, {name: 'Keluarga'}, {name: 'Kesehatan'}].each do |attributes|
   Category.find_or_initialize_by(name: attributes[:name]).update!(attributes)
