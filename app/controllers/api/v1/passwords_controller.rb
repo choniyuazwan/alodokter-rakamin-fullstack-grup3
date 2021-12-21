@@ -1,9 +1,4 @@
 class Api::V1::PasswordsController < ApplicationController
-
-    def new 
-
-    end
-
     def create 
         @user = User.find_by(email: params[:email])
 

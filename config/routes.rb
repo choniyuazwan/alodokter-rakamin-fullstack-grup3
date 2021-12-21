@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :articles, only: %i[index create show]
       
       resources :doc_spe_ins_day_hous, only: %i[index show]
+      resources :schedules, only: %i[index show]
       resources :bookings, only: %i[index create show]
       
       resources :specializations, only: %i[index create show]
@@ -22,7 +23,6 @@ Rails.application.routes.draw do
       put 'users/:id/update_personal', to: 'users#update_personal'
       put 'users/:id/update_password', to: 'users#update_password'
 
-      get 'password/forget', to: 'passwords#new'
       post 'password/forget', to: 'passwords#create'
       get 'password/forget/edit', to: 'passwords#edit'
       patch 'password/forget/edit', to: 'passwords#update'
