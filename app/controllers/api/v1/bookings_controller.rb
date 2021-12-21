@@ -3,7 +3,7 @@ class Api::V1::BookingsController < ApplicationController
   before_action :set_booking, only: :show
   
   def index
-    @bookings = Booking.order(params[:order]).page(params[:page]).per(params[:per_page])
+    @bookings = current_user!.bookings.order(params[:order]).page(params[:page]).per(params[:per_page])
     render json: CommonRepresenter.new(data: BookingsRepresenter.new(@bookings).as_json, meta: [@bookings.current_page, @bookings.limit_value, @bookings.total_pages, @bookings.total_count]).as_json
   rescue StandardError => e; render json: CommonRepresenter.new(code: 400, message: e.to_s).as_json, status: :bad_request
   end
@@ -34,7 +34,7 @@ class Api::V1::BookingsController < ApplicationController
   end
 
   def set_booking
-    @booking = Booking.find(params[:id])
+    @booking = current_user!.bookings.find(params[:id])
   rescue StandardError => e; render json: CommonRepresenter.new(code: 400, message: e.to_s).as_json, status: :bad_request
   end
 end
