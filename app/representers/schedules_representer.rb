@@ -5,10 +5,14 @@ class SchedulesRepresenter
   def as_json
     schedules = []
     doc_spe_ins_day_hous.map do |doc_spe_ins_day_hou|
-      doctor = Doctor.find(DocSpe.find(DocSpeIn.find(DocSpeInsDay.find(doc_spe_ins_day_hou.doc_spe_ins_day_id).doc_spe_in_id).doc_spe_id).doctor_id).name
-      specialization = Specialization.find(DocSpe.find(DocSpeIn.find(DocSpeInsDay.find(doc_spe_ins_day_hou.doc_spe_ins_day_id).doc_spe_in_id).doc_spe_id).specialization_id).name
-      institution = Institution.find(DocSpeIn.find(DocSpeInsDay.find(doc_spe_ins_day_hou.doc_spe_ins_day_id).doc_spe_in_id).institution_id).name
-      day = Day.find(DocSpeInsDay.find(doc_spe_ins_day_hou.doc_spe_ins_day_id).day_id).name
+      day_id = doc_spe_ins_day_hou.doc_spe_ins_day_id
+      institution_id = DocSpeInsDay.find(day_id).doc_spe_in_id
+      specialization_id = DocSpeIn.find(institution_id).doc_spe_id
+      
+      doctor = Doctor.find(DocSpe.find(specialization_id).doctor_id).name
+      specialization = Specialization.find(DocSpe.find(specialization_id).specialization_id).name
+      institution = Institution.find(DocSpeIn.find(institution_id).institution_id).name
+      day = Day.find(DocSpeInsDay.find(day_id).day_id).name
       hour = Hour.find(doc_spe_ins_day_hou.hour_id).name
 
       if schedules.none?{|a| a[:name] == doctor} 
@@ -17,29 +21,37 @@ class SchedulesRepresenter
       
       schedules.each_with_index { |v_doc, i_doc|
         if schedules[i_doc][:name] == doctor
-          schedules[i_doc][:specialization] = [] if schedules[i_doc][:specialization] == nil
-          schedules[i_doc][:specialization].push({name: specialization}) if schedules[i_doc][:specialization].none?{|a| a[:name] == specialization}
+          schedule_specialization = schedules[i_doc][:specialization]
+          schedule_specialization = [] if schedule_specialization == nil
+          schedule_specialization.push({name: specialization}) if schedule_specialization.none?{|a| a[:name] == specialization}
 
-          schedules[i_doc][:specialization].each_with_index { |v_spe, i_spe|
-            if schedules[i_doc][:specialization][i_spe][:name] == specialization
-              schedules[i_doc][:specialization][i_spe][:institution] = [] if schedules[i_doc][:specialization][i_spe][:institution] == nil
-              schedules[i_doc][:specialization][i_spe][:institution].push({name: institution}) if schedules[i_doc][:specialization][i_spe][:institution].none?{|a| a[:name] == institution}
+          schedule_specialization.each_with_index { |v_spe, i_spe|
+            if schedule_specialization[i_spe][:name] == specialization
+              schedule_institution = schedule_specialization[i_spe][:institution]
+              schedule_institution = [] if schedule_institution == nil
+              schedule_institution.push({name: institution}) if schedule_institution.none?{|a| a[:name] == institution}
 
-              schedules[i_doc][:specialization][i_spe][:institution].each_with_index { |v_ins, i_ins|
-                if schedules[i_doc][:specialization][i_spe][:institution][i_ins][:name] == institution
-                  schedules[i_doc][:specialization][i_spe][:institution][i_ins][:day] = [] if schedules[i_doc][:specialization][i_spe][:institution][i_ins][:day] == nil
-                  schedules[i_doc][:specialization][i_spe][:institution][i_ins][:day].push({name: day}) if schedules[i_doc][:specialization][i_spe][:institution][i_ins][:day].none?{|a| a[:name] == day}
+              schedule_institution.each_with_index { |v_ins, i_ins|
+                if schedule_institution[i_ins][:name] == institution
+                  schedule_day = schedule_institution[i_ins][:day]
+                  schedule_day = [] if schedule_day == nil
+                  schedule_day.push({name: day}) if schedule_day.none?{|a| a[:name] == day}
 
-                  schedules[i_doc][:specialization][i_spe][:institution][i_ins][:day].each_with_index { |v_day, i_day|
-                    if schedules[i_doc][:specialization][i_spe][:institution][i_ins][:day][i_day][:name] == day
-                      schedules[i_doc][:specialization][i_spe][:institution][i_ins][:day][i_day][:hour] = [] if schedules[i_doc][:specialization][i_spe][:institution][i_ins][:day][i_day][:hour] == nil
-                      schedules[i_doc][:specialization][i_spe][:institution][i_ins][:day][i_day][:hour].push({id: doc_spe_ins_day_hou.id, name: hour, date: doc_spe_ins_day_hou.date, is_active: doc_spe_ins_day_hou.is_active}) if schedules[i_doc][:specialization][i_spe][:institution][i_ins][:day][i_day][:hour].none?{|a| a[:name] == hour}
+                  schedule_day.each_with_index { |v_day, i_day|
+                    if schedule_day[i_day][:name] == day
+                      schedule_hour = schedule_day[i_day][:hour]
+                      schedule_hour = [] if schedule_hour == nil
+                      schedule_hour.push({id: doc_spe_ins_day_hou.id, name: hour, date: doc_spe_ins_day_hou.date, is_active: doc_spe_ins_day_hou.is_active}) if schedule_hour.none?{|a| a[:name] == hour}
+                      schedule_day[i_day][:hour] = schedule_hour
                     end
                   }
+                  schedule_institution[i_ins][:day] = schedule_day
                 end
               }
+              schedule_specialization[i_spe][:institution] = schedule_institution
             end
           }
+          schedules[i_doc][:specialization] = schedule_specialization
         end
       }
     end
