@@ -1,6 +1,7 @@
 class DocSpeInsDayHou < ApplicationRecord
   belongs_to :doc_spe_ins_day
   belongs_to :hour
+  has_many :bookings
   validates :doc_spe_ins_day_id, :hour_id, presence: true, length: { minimum: 1 }
 
   def self.query(search, category, headline)

@@ -5,23 +5,23 @@ class SchedulesRepresenter
   def as_json
     schedules = []
     doc_spe_ins_day_hous.map do |doc_spe_ins_day_hou|
-      day_id = doc_spe_ins_day_hou.doc_spe_ins_day_id
-      institution_id = DocSpeInsDay.find(day_id).doc_spe_in_id
-      specialization_id = DocSpeIn.find(institution_id).doc_spe_id
-      price = DocSpeIn.find(institution_id).price
+      doc_spe_ins_day = doc_spe_ins_day_hou.doc_spe_ins_day
+      doc_spe_in = doc_spe_ins_day.doc_spe_in
+      doc_spe = doc_spe_in.doc_spe
       
-      doctor = Doctor.find(DocSpe.find(specialization_id).doctor_id).name
-      specialization = Specialization.find(DocSpe.find(specialization_id).specialization_id).name
+      doctor = doc_spe.doctor.name
+      specialization = doc_spe.specialization.name
       
-      institution_object = Institution.find(DocSpeIn.find(institution_id).institution_id)
+      institution_object = doc_spe_in.institution
       institution = institution_object.name
       location = institution_object.location
       latitude = institution_object.latitude
       longitude = institution_object.longitude
       coordinate = {latitude: latitude, longitude: longitude}
       
-      day = Day.find(DocSpeInsDay.find(day_id).day_id).name
-      hour = Hour.find(doc_spe_ins_day_hou.hour_id).name
+      price = doc_spe_in.price
+      day = doc_spe_ins_day.day.name
+      hour = doc_spe_ins_day_hou.hour.name
 
       if schedules.none?{|a| a[:name] == doctor} 
         schedules.push({name: doctor})

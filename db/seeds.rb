@@ -100,7 +100,7 @@ end
   }
 }
 
-(1..27).each { |i|
+(1..9).each { |i|
   (1..2).each { |j|
     DocSpeInsDayHou.create(
         {

@@ -3,11 +3,11 @@ class DocSpeInsDayHouRepresenter
     @doc_spe_ins_day_hou = doc_spe_ins_day_hou
   end
   def as_json
-    doctor = Doctor.find(DocSpe.find(DocSpeIn.find(DocSpeInsDay.find(doc_spe_ins_day_hou.doc_spe_ins_day_id).doc_spe_in_id).doc_spe_id).doctor_id).name
-    specialization = Specialization.find(DocSpe.find(DocSpeIn.find(DocSpeInsDay.find(doc_spe_ins_day_hou.doc_spe_ins_day_id).doc_spe_in_id).doc_spe_id).specialization_id).name
-    institution = Institution.find(DocSpeIn.find(DocSpeInsDay.find(doc_spe_ins_day_hou.doc_spe_ins_day_id).doc_spe_in_id).institution_id).name
-    day = Day.find(DocSpeInsDay.find(doc_spe_ins_day_hou.doc_spe_ins_day_id).day_id).name
-    hour = Hour.find(doc_spe_ins_day_hou.hour_id).name
+    doctor = doc_spe_ins_day_hou.doc_spe_ins_day.doc_spe_in.doc_spe.doctor.name
+    specialization = doc_spe_ins_day_hou.doc_spe_ins_day.doc_spe_in.doc_spe.specialization.name
+    institution = doc_spe_ins_day_hou.doc_spe_ins_day.doc_spe_in.institution.name
+    day = doc_spe_ins_day_hou.doc_spe_ins_day.day.name
+    hour = doc_spe_ins_day_hou.hour.name
     {
         id: doc_spe_ins_day_hou.id,
         doctor: doctor,
