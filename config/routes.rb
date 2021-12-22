@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :articles, only: %i[index create show]
       
       resources :doc_spe_ins_day_hous, only: %i[index show]
-      resources :schedules, only: %i[index show]
+      resources :combines, only: %i[index show]
       resources :schedule_doctors, only: %i[index show]
       resources :bookings, only: %i[index create show]
       

@@ -1,4 +1,4 @@
-class SchedulesRepresenter
+class CombinesRepresenter
   def initialize(doc_spe_ins_day_hous)
     @doc_spe_ins_day_hous = doc_spe_ins_day_hous
   end
