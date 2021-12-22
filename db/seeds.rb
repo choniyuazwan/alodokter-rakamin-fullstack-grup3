@@ -66,81 +66,49 @@ CSV.foreach(Rails.root.join('db/seeds/article_seeds.csv'), headers: true) do |ro
   )
 end
 
-[
-    {doctor_id: 1, specialization_id: 1},
-    {doctor_id: 1, specialization_id: 2},
-    {doctor_id: 1, specialization_id: 3},
-    {doctor_id: 2, specialization_id: 1},
-    {doctor_id: 2, specialization_id: 2},
-    {doctor_id: 2, specialization_id: 3},
-    {doctor_id: 3, specialization_id: 1},
-    {doctor_id: 3, specialization_id: 2},
-    {doctor_id: 3, specialization_id: 3}
-].each do |attributes|
-  DocSpe.create(
-      {
-          doctor_id: attributes[:doctor_id],
-          specialization_id: attributes[:specialization_id]
-      }
-  )
-end
+(1..3).each { |i|
+  (1..2).each { |j|
+    DocSpe.create(
+        {
+            doctor_id: i,
+            specialization_id: j
+        }
+    ) 
+  }
+}
 
-[
-    {doc_spe_id: 1, institution_id: 1, price: 300000},
-    {doc_spe_id: 1, institution_id: 2, price: 400000},
-    {doc_spe_id: 1, institution_id: 3, price: 500000},
-    {doc_spe_id: 2, institution_id: 1, price: 300000},
-    {doc_spe_id: 2, institution_id: 2, price: 400000},
-    {doc_spe_id: 2, institution_id: 3, price: 500000},
-    {doc_spe_id: 3, institution_id: 1, price: 300000},
-    {doc_spe_id: 3, institution_id: 2, price: 400000},
-    {doc_spe_id: 3, institution_id: 3, price: 500000},
-].each do |attributes|
-  DocSpeIn.create(
-      {
-          doc_spe_id: attributes[:doc_spe_id],
-          institution_id: attributes[:institution_id],
-          price: attributes[:price]
-      }
-  )
-end
+(1..9).each { |i|
+  (1..2).each { |j|
+    DocSpeIn.create(
+        {
+            doc_spe_id: i,
+            institution_id: j,
+            price: 100000*j
+        }
+    )
+  }
+}
 
-[
-    {doc_spe_in_id: 1, day_id: 1},
-    {doc_spe_in_id: 1, day_id: 2},
-    {doc_spe_in_id: 1, day_id: 3},
-    {doc_spe_in_id: 2, day_id: 1},
-    {doc_spe_in_id: 2, day_id: 2},
-    {doc_spe_in_id: 2, day_id: 3},
-    {doc_spe_in_id: 3, day_id: 1},
-    {doc_spe_in_id: 3, day_id: 2},
-    {doc_spe_in_id: 3, day_id: 3},
-].each do |attributes|
-  DocSpeInsDay.create(
-      {
-          doc_spe_in_id: attributes[:doc_spe_in_id],
-          day_id: attributes[:day_id]
-      }
-  )
-end
+(1..9).each { |i|
+  (1..2).each { |j|
+    DocSpeInsDay.create(
+        {
+            doc_spe_in_id: i,
+            day_id: j
+        }
+    )
+  }
+}
 
-[
-    {doc_spe_ins_day_id: 1, hour_id: 1, date: DateTime.current.to_date, is_active: true},
-    {doc_spe_ins_day_id: 1, hour_id: 2, date: DateTime.current.to_date, is_active: true},
-    {doc_spe_ins_day_id: 1, hour_id: 3, date: DateTime.current.to_date, is_active: true},
-    {doc_spe_ins_day_id: 2, hour_id: 1, date: DateTime.current.to_date, is_active: true},
-    {doc_spe_ins_day_id: 2, hour_id: 2, date: DateTime.current.to_date, is_active: true},
-    {doc_spe_ins_day_id: 2, hour_id: 3, date: DateTime.current.to_date, is_active: true},
-    {doc_spe_ins_day_id: 3, hour_id: 1, date: DateTime.current.to_date, is_active: true},
-    {doc_spe_ins_day_id: 3, hour_id: 2, date: DateTime.current.to_date, is_active: true},
-    {doc_spe_ins_day_id: 3, hour_id: 3, date: DateTime.current.to_date, is_active: true},
-].each do |attributes|
-  DocSpeInsDayHou.create(
-      {
-          doc_spe_ins_day_id: attributes[:doc_spe_ins_day_id],
-          hour_id: attributes[:hour_id],
-          date: attributes[:date],
-          is_active: attributes[:is_active]
-      }
-  )
-end
+(1..27).each { |i|
+  (1..2).each { |j|
+    DocSpeInsDayHou.create(
+        {
+            doc_spe_ins_day_id: i,
+            hour_id: j,
+            date: DateTime.current.to_date,
+            is_active: true
+        }
+    )
+  }
+}

@@ -8,10 +8,18 @@ class SchedulesRepresenter
       day_id = doc_spe_ins_day_hou.doc_spe_ins_day_id
       institution_id = DocSpeInsDay.find(day_id).doc_spe_in_id
       specialization_id = DocSpeIn.find(institution_id).doc_spe_id
+      price = DocSpeIn.find(institution_id).price
       
       doctor = Doctor.find(DocSpe.find(specialization_id).doctor_id).name
       specialization = Specialization.find(DocSpe.find(specialization_id).specialization_id).name
-      institution = Institution.find(DocSpeIn.find(institution_id).institution_id).name
+      
+      institution_object = Institution.find(DocSpeIn.find(institution_id).institution_id)
+      institution = institution_object.name
+      location = institution_object.location
+      latitude = institution_object.latitude
+      longitude = institution_object.longitude
+      coordinate = {latitude: latitude, longitude: longitude}
+      
       day = Day.find(DocSpeInsDay.find(day_id).day_id).name
       hour = Hour.find(doc_spe_ins_day_hou.hour_id).name
 
@@ -29,7 +37,7 @@ class SchedulesRepresenter
             if schedule_specialization[i_spe][:name] == specialization
               schedule_institution = schedule_specialization[i_spe][:institution]
               schedule_institution = [] if schedule_institution == nil
-              schedule_institution.push({name: institution}) if schedule_institution.none?{|a| a[:name] == institution}
+              schedule_institution.push({name: institution, location: location, price: price, coordinate: coordinate}) if schedule_institution.none?{|a| a[:name] == institution}
 
               schedule_institution.each_with_index { |v_ins, i_ins|
                 if schedule_institution[i_ins][:name] == institution
