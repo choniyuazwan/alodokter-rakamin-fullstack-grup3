@@ -8,6 +8,8 @@ class DocSpeInsDayHousRepresenter
         doctor: doc_spe_ins_day_hou.doc_spe_ins_day.doc_spe_in.doc_spe.doctor.name,
         specialization: doc_spe_ins_day_hou.doc_spe_ins_day.doc_spe_in.doc_spe.specialization.name,
         institution: doc_spe_ins_day_hou.doc_spe_ins_day.doc_spe_in.institution.name,
+        location: doc_spe_ins_day_hou.doc_spe_ins_day.doc_spe_in.institution.location,
+        price: doc_spe_ins_day_hou.doc_spe_ins_day.doc_spe_in.price,
         day: doc_spe_ins_day_hou.doc_spe_ins_day.day.name,
         hour: doc_spe_ins_day_hou.hour.name,
         date: doc_spe_ins_day_hou.date,
