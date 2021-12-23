@@ -9,11 +9,12 @@ class Api::V1::BookingsController < ApplicationController
   end
 
   def create
-    @booking = current_user!.bookings.create(booking_params)
-    schedule = DocSpeInsDayHou.find(@booking.doc_spe_ins_day_hou_id)
+    schedule = DocSpeInsDayHou.find(booking_params[:doc_spe_ins_day_hou_id])
     if schedule.is_active == false
       return render json: CommonRepresenter.new(code: 422, message: "doctor's schedule is no longer available").as_json, status: :unprocessable_entity
     end
+    
+    @booking = current_user!.bookings.create(booking_params)
     if @booking.save
       schedule.update(is_active: false)
       render json: CommonRepresenter.new(data: BookingRepresenter.new(@booking).as_json, code: 201).as_json, status: :created
