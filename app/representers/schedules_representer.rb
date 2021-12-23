@@ -1,4 +1,4 @@
-class ScheduleDoctorsRepresenter
+class SchedulesRepresenter
   def initialize(doctors)
     @doctors = doctors
   end

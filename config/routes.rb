@@ -8,15 +8,16 @@ Rails.application.routes.draw do
       
       resources :categories, only: %i[index create show]
       resources :reviewers, only: %i[index create show]
-      resources :articles, only: %i[index create show]
-      
-      resources :doc_spe_ins_day_hous, only: %i[index show]
-      resources :combines, only: %i[index show]
-      resources :schedule_doctors, only: %i[index show]
-      resources :bookings, only: %i[index create show]
-      
       resources :specializations, only: %i[index create show]
       resources :institutions, only: %i[index create show]
+
+      resources :articles, only: %i[index create show]
+      resources :combines, only: %i[index show]
+      resources :schedules, only: %i[index show]
+      resources :bookings, only: %i[index create show]
+      
+      get 'units', to: 'doc_spe_ins_day_hous#index'
+      get 'units/:id', to: 'doc_spe_ins_day_hous#show'
 
       post 'users/login', to: 'authentication#create'
       post 'users/register', to: 'users#create'
